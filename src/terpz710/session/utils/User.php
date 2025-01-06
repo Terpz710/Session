@@ -39,7 +39,6 @@ final class User {
                 "respawns" => 0,
                 "total_block_mined" => 0,
                 "total_block_placed" => 0,
-                "total_item_smelt" => 0,
                 "total_item_craft" => 0,
                 "logout_coordinates" => null,
                 "first_join" => $date . " " . $time,
@@ -228,18 +227,6 @@ final class User {
         $uuid = $this->getUUID();
         $data = $this->config->get($uuid);
         $data["respawns"] += $respawn;
-        $this->config->set($uuid, $data);
-        $this->config->save();
-    }
-
-    public function getTotalItemSmelted() : ?string{
-        return $this->config->get($this->getUUID())["total_item_smelt"];
-    }
-
-    public function setTotalItemSmelted(int $smelt) : void{
-        $uuid = $this->getUUID();
-        $data = $this->config->get($uuid);
-        $data["total_item_smelt"] += $smelt;
         $this->config->set($uuid, $data);
         $this->config->save();
     }
