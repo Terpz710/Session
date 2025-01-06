@@ -97,21 +97,21 @@ class EventListener implements Listener {
     }
 
     public function onKill(PlayerDeathEvent $event) : void{
-		$player = $event->getPlayer();
+        $player = $event->getPlayer();
         $sessionManager = $this->plugin->getSessionManager();
         $session = $sessionManager->getSession($player)->getUserData();
         
-		if ($player instanceof Player){
-			$session->addDeath(1);
-		}
-        
-		$cause = $player->getLastDamageCause();
-        
-		if ($cause instanceof EntityDamageByEntityEvent){
-			$damager = $cause->getDamager();
-			if($damager instanceof Player){
-				$session->addKill(1);
-			}
-		}
+	if ($player instanceof Player) {
+	    $session->addDeath(1);
 	}
+        
+	$cause = $player->getLastDamageCause();
+        
+	if ($cause instanceof EntityDamageByEntityEvent) {
+	    $damager = $cause->getDamager();
+	    if ($damager instanceof Player) {
+	        $session->addKill(1);
+	    }
+	}
+    }
 }
