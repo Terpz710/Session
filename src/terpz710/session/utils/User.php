@@ -221,13 +221,13 @@ final class User {
     }
 
     public function getRespawns() : ?string{
-        return $this->config->get($this->getUUID())["respawn"];
+        return $this->config->get($this->getUUID())["respawns"];
     }
 
     public function addRespawn(int $respawn) : void{
         $uuid = $this->getUUID();
         $data = $this->config->get($uuid);
-        $data["respawn"] += $respawn;
+        $data["respawns"] += $respawn;
         $this->config->set($uuid, $data);
         $this->config->save();
     }
