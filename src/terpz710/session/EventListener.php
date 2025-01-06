@@ -6,6 +6,8 @@ namespace terpz710\session;
 
 use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityItemPickupEvent;
+use pocketmine\event\entity\EntityDamageByEntityEvent;
+use pocketmine\event\player\PlayerDeathEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\block\BlockBreakEvent;
@@ -61,9 +63,11 @@ class EventListener implements Listener {
         $block = $event->getBlock();
 
         $sessionManager = $this->plugin->getSessionManager();
+        $session = $sessionManager->getSession($player)->getUserData();
 
         if ($sessionManager->inSession($player)) {
-            $sessionManager->getSession($player)->getUserData()->setLastBlockMined($block->getName());
+            $session->setLastBlockMined($block->getName());
+            $session->setTotalBlockMined(1);
         }
     }
 
@@ -72,9 +76,11 @@ class EventListener implements Listener {
         $item = $event->getItem();
 
         $sessionManager = $this->plugin->getSessionManager();
+        $session = $sessionManager->getSession($player)->getUserData();
 
         if ($sessionManager->inSession($player)) {
-            $sessionManager->getSession($player)->getUserData()->setLastBlockPlaced($item->getName());
+            $session->setLastBlockPlaced($item->getName());
+            $session->setTotalBlockPlaced(1);
         }
     }
 
@@ -89,4 +95,23 @@ class EventListener implements Listener {
             }
         }
     }
+
+    public function onKill(PlayerDeathEvent $event) : void{
+		$player = $event->getPlayer();
+        $sessionManager = $this->plugin->getSessionManager();
+        $session = $sessionManager->getSession($player)->getUserData();
+        
+		if ($player instanceof Player){
+			$session->addDeath(1);
+		}
+        
+		$cause = $player->getLastDamageCause();
+        
+		if ($cause instanceof EntityDamageByEntityEvent){
+			$damager = $cause->getDamager();
+			if($damager instanceof Player){
+				$session->addKill(1);
+			}
+		}
+	}
 }
