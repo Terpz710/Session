@@ -116,7 +116,7 @@ class EventListener implements Listener {
     }
 
     public function onRespawn(PlayerRespawnEvent $event) : void{
-        $player = $event->getPlayer()
+        $player = $event->getPlayer();
         $sessionManager = $this->plugin->getSessionManager();
 
         if ($sessionManager->inSession($player)) {
