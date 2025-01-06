@@ -91,7 +91,7 @@ class EventListener implements Listener {
         
         if ($entity instanceof Player) {
             if ($sessionManager->inSession($entity)) {
-                $sessionManager->getSession($entity)->getUserData()->setLastItemPickedUp($item->getName());
+                $sessionManager->getSession($entity)->getUserData()->setLastItemPickedUp($item->getVanillaName());
             }
         }
     }
