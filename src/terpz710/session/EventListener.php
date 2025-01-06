@@ -8,10 +8,12 @@ use pocketmine\event\Listener;
 use pocketmine\event\entity\EntityItemPickupEvent;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
 use pocketmine\event\player\PlayerDeathEvent;
+use pocketmine\event\player\PlayerRespawnEvent;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
+use pocketmine\event\inventory\CraftItemEvent;
 
 use pocketmine\player\Player;
 
@@ -30,7 +32,6 @@ class EventListener implements Listener {
     public function onPlayerJoin(PlayerJoinEvent $event) : void{
         $player = $event->getPlayer();
         $name = $player->getName();
-        
         $sessionManager = $this->plugin->getSessionManager();
 
         $sessionManager->openSession($player);
@@ -61,7 +62,6 @@ class EventListener implements Listener {
     public function onBlockBreak(BlockBreakEvent $event) : void{
         $player = $event->getPlayer();
         $block = $event->getBlock();
-
         $sessionManager = $this->plugin->getSessionManager();
         $session = $sessionManager->getSession($player)->getUserData();
 
@@ -113,5 +113,23 @@ class EventListener implements Listener {
 	        $session->addKill(1);
 	    }
 	}
+    }
+
+    public function onRespawn(PlayerRespawnEvent $event) : void{
+        $player = $event->getPlayer()
+        $sessionManager = $this->plugin->getSessionManager();
+
+        if ($sessionManager->inSession($player)) {
+            $sessionManager->getSession($player)->getUserData()->addRespawn(1);
+        }
+    }
+
+    public function onCraft(CraftItemEvent $event) : void{
+        $player = $event->getPlayer();
+        $sessionManager = $this->plugin->getSessionManager();
+
+        if ($sessionManager->inSession($player)) {
+            $sessionManager->getSession($player)->getUserData()->setTotalItemCraft(1);
+        }
     }
 }
