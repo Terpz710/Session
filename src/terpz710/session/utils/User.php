@@ -34,6 +34,10 @@ final class User {
             $this->config->set($uuid, [
                 "username" => $this->player->getName(),
                 "playtime" => 0,
+                "kills" => 0,
+                "deaths" => 0,
+                "total_block_mined" => 0,
+                "total_block_placed" => 0,
                 "logout_coordinates" => null,
                 "first_join" => $date . " " . $time,
                 "last_join" => null,
@@ -153,7 +157,7 @@ final class User {
         $this->config->save();
     }
 
-    public function getUsername() : string{
+    public function getUsername() : ?string{
         return $this->config->get($this->getUUID())["username"];
     }
 
@@ -161,6 +165,54 @@ final class User {
         $uuid = $this->getUUID();
         $data = $this->config->get($uuid);
         $data["username"] = $name;
+        $this->config->set($uuid, $data);
+        $this->config->save();
+    }
+
+    public function getKills() : ?string{
+        return $this->config->get($this->getUUID())["kills"];
+    }
+
+    public function addKill(int $kills) : void{
+        $uuid = $this->getUUID();
+        $data = $this->config->get($uuid);
+        $data["kills"] += $kills;
+        $this->config->set($uuid, $data);
+        $this->config->save();
+    }
+
+    public function getDeaths() : ?string{
+        return $this->config->get($this->getUUID())["deaths"];
+    }
+
+    public function addDeath(int $death) : void{
+        $uuid = $this->getUUID();
+        $data = $this->config->get($uuid);
+        $data["deaths"] += $death;
+        $this->config->set($uuid, $data);
+        $this->config->save();
+    }
+
+    public function getTotalBlockMined() : ?string{
+        return $this->config->get($this->getUUID())["total_block_mined"];
+    }
+
+    public function setTotalBlockMined(int $block) : void{
+        $uuid = $this->getUUID();
+        $data = $this->config->get($uuid);
+        $data["total_block_mined"] += $block;
+        $this->config->set($uuid, $data);
+        $this->config->save();
+    }
+
+    public function getTotalBlockPlaced() : ?string{
+        return $this->config->get($this->getUUID())["total_block_placed"];
+    }
+
+    public function setTotalBlockPlaced(int $block) : void{
+        $uuid = $this->getUUID();
+        $data = $this->config->get($uuid);
+        $data["total_block_placed"] += $block;
         $this->config->set($uuid, $data);
         $this->config->save();
     }
