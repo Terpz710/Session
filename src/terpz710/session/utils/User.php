@@ -50,7 +50,7 @@ final class User {
     }
 
     public function getLogoutCoordinates() : string{
-        return $this->config->get($this->UUID())["logout_coordinates"];
+        return $this->config->get($this->getUUID())["logout_coordinates"];
     }
 
     public function saveLogoutCoordinates(Player $player) : void{
@@ -130,7 +130,7 @@ final class User {
     }
 
     public function getLastBlockPlaced() : ?string{
-        return $this->config->get($this->UUID())["last_block_placed"];
+        return $this->config->get($this->getUUID())["last_block_placed"];
     }
 
     public function setLastBlockPlaced(string $block) : void{
