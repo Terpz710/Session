@@ -32,6 +32,14 @@ $user->getLastBlockPlaced(); returns the name of the last block placed.
 $user->getLastItemPickedUp(); returns the name of the last item picked up.
 
 $user->getUsername(); returns the username thats in the user data.
+
+$user->getKills(); returns the total amount of kills the user has.
+
+$user->getDeaths(); returns the total amount of deaths the user has.
+
+$user->getTotalBlockMined(); returns the total amount of blocks mined.
+
+$user->getTotalBlockPlaced(); returns the total amount of blocks placed.
 ```
 
 **How to retrieve player data with the user being in a session**
@@ -72,7 +80,9 @@ $manager = SessionLoader::getInstance()->getSessionManager();
 
 Check to see if the player who triggered the event is in a session, if yes it will call the function of your choice. The player will always be in a session unless the player is offline which will never happened....
 
+$block is an instance of Block::class
+
 if ($manager->inSession($player)) {
-    $manager->getSession($player)->getUserData()->setLastBlockMined($block->getName);
+    $manager->getSession($player)->getUserData()->setLastBlockMined($block->getName());
 }
 ```
