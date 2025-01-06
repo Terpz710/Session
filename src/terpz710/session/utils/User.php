@@ -244,11 +244,11 @@ final class User {
         $this->config->save();
     }
 
-    public function getTotalItemCrafted() : ?string{
+    public function getTotalItemCraft() : ?string{
         return $this->config->get($this->getUUID())["total_item_craft"];
     }
 
-    public function setTotalItemCrafted(int $craft) : void{
+    public function setTotalItemCraft(int $craft) : void{
         $uuid = $this->getUUID();
         $data = $this->config->get($uuid);
         $data["total_item_craft"] += $craft;
