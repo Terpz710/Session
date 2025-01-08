@@ -55,6 +55,15 @@ final class User {
         return $this->player->getUniqueId()->toString();
     }
 
+    public function getPlayerDataByName(string $username) : ?array {
+        foreach ($this->config->getAll() as $uuid => $data) {
+            if ($data["username"] === $username) {
+                return $data;
+            }
+        }
+        return null;
+    }
+
     public function getLogoutCoordinates() : string{
         return $this->config->get($this->getUUID())["logout_coordinates"];
     }
