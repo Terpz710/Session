@@ -90,9 +90,7 @@ final class SavedData {
             return;
         }
 
-        $data = $this->data->get($uuid);
-
-        $seconds = $this->data->get(uuid)["total_playtime"];
+        $seconds = $this->data->get($uuid)["total_playtime"];
 
         $years = floor($seconds / (365 * 24 * 60 * 60));
         $seconds %= (365 * 24 * 60 * 60);
