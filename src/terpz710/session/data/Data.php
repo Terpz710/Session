@@ -133,11 +133,8 @@ final class Data implements IData, SaveableData {
 
     public function getName(string $player) : string{
         $uuid = $this->getId($player);
-        if ($uuid === null) {
-            return null;
-        }
 
         $data = $this->data->get($uuid);
-        return $data["username"] ?? null;
+        return $data["username"];
     }
 }
