@@ -80,10 +80,10 @@ final class SavedData {
 
     public function hasPlayerData(Player|string $player) : bool{
         $uuid = $this->getId($player);
-        return $this->data->exist($uuid);
+        return $this->data->exists($uuid);
     }
 
-    public function getTotalPlaytime() {
+    public function getTotalPlaytime(Player|string $player) {
         $uuid = $this->getId($player);
 
         if ($uuid === null) {
