@@ -10,6 +10,10 @@ final class SessionManager {
 
     protected array $sessions = [];
 
+    public function __construct() {
+        //NADA
+    }
+
     public function openSession(Player $player) : Session{
         $session = new Session($player);
         $this->sessions[$player->getUniqueId()->getBytes()] = $session;
