@@ -30,6 +30,6 @@ final class Loader extends PluginBase {
         $this->getServer()->getPluginManager()->registerEvents(new EntityEvent(), $this);
         **/
 
-        $this->manager = new SessionManager($this);
+        $this->manager = new SessionManager();
     }
 }
