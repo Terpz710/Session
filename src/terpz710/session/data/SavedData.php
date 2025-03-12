@@ -128,4 +128,26 @@ final class SavedData {
         $data = $this->data->get($uuid);
         return $data ? $data["username"] : null;
     }
+
+    public function getTotalBlocksMined(Player|string $player) {
+        $uuid = $this->getId($player);
+
+        if ($uuid === null) {
+            return;
+        }
+
+        $data = $this->data->get($uuid);
+        return $data ? $data["total_blocks_mined"] : null;
+    }
+
+    public function getTotalBlocksPlaced(Player|string $player) {
+        $uuid = $this->getId($player);
+
+        if ($uuid === null) {
+            return;
+        }
+
+        $data = $this->data->get($uuid);
+        return $data ? $data["total_blocks_placed"] : null;
+    }
 }
