@@ -64,9 +64,11 @@ class EventListener implements Listener {
 
     public function place(BlockPlaceEvent $event) : void{
         $player = $event->getPlayer();
+        $name = $event->getItem()->getVanillaName();
         $data = Loader::getInstance()->getSessionManager()->getSession($player)->getData();
         
         $data->addBlockPlaced($player, 1);
+        $data->saveBlockPlaced($player, $name);
     }
 
     public function pickup(EntityItemPickupEvent $event) : void{
