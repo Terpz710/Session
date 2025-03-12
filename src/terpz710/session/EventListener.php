@@ -7,6 +7,8 @@ namespace terpz710\session;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\event\block\BlockBreakEvent;
+use pocketmine\event\block\BlockPlaceEvent;
 
 use terpz710\session\Loader;
 
@@ -48,5 +50,17 @@ class EventListener implements Listener {
             $task->getHandler()?->cancel();
             unset($this->playtimeTasks[$player->getUniqueId()->getBytes()]);
         }
+    }
+
+    public function break(BlockBreakEvent $event) : void{
+        $player = $event->getPlayer();
+        
+        Loader::getInstance()->getSessionManager()->getSession($player)->getData()->addBlockMined($player, 1);
+    }
+
+    public function place(BlockPlaceEvent $event) : void{
+        $player = $event->getPlayer();
+        
+        Loader::getInstance()->getSessionManager()->getSession($player)->getData()->addBlockPlaced($player, 1);
     }
 }
