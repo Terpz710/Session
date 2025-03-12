@@ -33,7 +33,9 @@ final class Data implements IData, SaveableData {
                 "last_logout_position" => null,
                 "total_playtime" => 0,
                 "total_joins" => 0,
-                "total_quit" => 0
+                "total_quit" => 0,
+                "total_blocks_mined" => 0,
+                "total_blocks_placed" => 0
             ]);
             $this->savePlayerData();
         }
@@ -53,12 +55,12 @@ final class Data implements IData, SaveableData {
         return null;
     }
 
-    public function hasPlayerData(Player|string $player): bool {
+    public function hasPlayerData(Player|string $player) : bool{
         $uuid = $this->getId($player);
         return $uuid !== null && $this->data->exists($uuid);
     }
 
-    public function addJoin(Player|string $player): void {
+    public function addJoin(Player|string $player) : void{
         $uuid = $this->getId($player);
         if ($uuid !== null) {
             $data = $this->data->get($uuid);
@@ -68,7 +70,7 @@ final class Data implements IData, SaveableData {
         }
     }
 
-    public function addQuit(Player|string $player): void {
+    public function addQuit(Player|string $player) : void{
         $uuid = $this->getId($player);
         if ($uuid !== null) {
             $data = $this->data->get($uuid);
@@ -78,7 +80,7 @@ final class Data implements IData, SaveableData {
         }
     }
 
-    public function saveLogoutPosition(Player $player): void {
+    public function saveLogoutPosition(Player $player) : void{
         $uuid = $this->getId($player);
         if ($uuid !== null) {
             $data = $this->data->get($uuid);
@@ -94,7 +96,7 @@ final class Data implements IData, SaveableData {
         }
     }
 
-    public function updateName(Player|string $player, string $name): void {
+    public function updateName(Player|string $player, string $name) : void{
         $uuid = $this->getId($player);
         if ($uuid !== null) {
             $data = $this->data->get($uuid);
@@ -104,11 +106,31 @@ final class Data implements IData, SaveableData {
         }
     }
 
-    public function addPlaytime(Player|string $player, int $seconds): void {
+    public function addPlaytime(Player|string $player, int $seconds) : void{
         $uuid = $this->getId($player);
         if ($uuid !== null) {
             $data = $this->data->get($uuid);
             $data["total_playtime"] += $seconds;
+            $this->data->set($uuid, $data);
+            $this->savePlayerData();
+        }
+    }
+
+    public function addBlockMined(Player|string $player, int $amount) : void{
+        $uuid = $this->getId($player);
+        if ($uuid !== null) {
+            $data = $this->data->get($uuid);
+            $data["total_blocks_mined"] += $amount;
+            $this->data->set($uuid, $data);
+            $this->savePlayerData();
+        }
+    }
+
+    public function addBlockPlaced(Player|string $player, int $amount) : void{
+        $uuid = $this->getId($player);
+        if ($uuid !== null) {
+            $data = $this->data->get($uuid);
+            $data["total_blocks_placed"] += $amount;
             $this->data->set($uuid, $data);
             $this->savePlayerData();
         }
