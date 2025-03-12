@@ -10,6 +10,9 @@ use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityItemPickupEvent;
+use pocketmine\event\server\DataPacketReceiveEvent;
+
+use pocketmine\network\mcpe\protocol\InteractPacket;
 
 use pocketmine\player\Player;
 
