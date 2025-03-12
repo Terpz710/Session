@@ -150,4 +150,26 @@ final class SavedData {
         $data = $this->data->get($uuid);
         return $data ? $data["total_blocks_placed"] : null;
     }
+
+    public function getLastItemPickedUp(Player|string $player) {
+        $uuid = $this->getId($player);
+
+        if ($uuid === null) {
+            return;
+        }
+
+        $data = $this->data->get($uuid);
+        return $data ? $data["last_item_picked_up"] : null;
+    }
+
+    public function getLastBlockMined(Player|string $player) {
+        $uuid = $this->getId($player);
+
+        if ($uuid === null) {
+            return;
+        }
+
+        $data = $this->data->get($uuid);
+        return $data ? $data["last_block_broken"] : null;
+    }
 }
