@@ -33,6 +33,7 @@ final class Data implements IData, SaveableData {
                 "last_logout_position" => null,
                 "last_item_picked_up" => null,
                 "last_block_broken" => null,
+                "last_block_placed" => null,
                 "total_playtime" => 0,
                 "total_joins" => 0,
                 "total_quit" => 0,
@@ -153,6 +154,16 @@ final class Data implements IData, SaveableData {
         if ($uuid !== null) {
             $data = $this->data->get($uuid);
             $data["last_block_broken"] = $name;
+            $this->data->set($uuid, $data);
+            $this->savePlayerData();
+        }
+    }
+
+    public function saveBlockPlaced(Player|string $player, string $name) : void{
+        $uuid = $this->getId($player);
+        if ($uuid !== null) {
+            $data = $this->data->get($uuid);
+            $data["last_block_placed"] = $name;
             $this->data->set($uuid, $data);
             $this->savePlayerData();
         }
