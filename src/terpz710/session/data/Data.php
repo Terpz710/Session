@@ -39,7 +39,8 @@ final class Data implements IData, SaveableData {
                 "total_quit" => 0,
                 "total_blocks_mined" => 0,
                 "total_blocks_placed" => 0,
-                "total_item_picked_up" => 0
+                "total_item_picked_up" => 0,
+                "total_open_inventory" => 0
             ]);
             $this->savePlayerData();
         }
@@ -150,11 +151,21 @@ final class Data implements IData, SaveableData {
         }
     }
 
-    public function saveItemPickedUp(Player|string $player, string $name) : void{
+    public function addItemPickUp(Player|string $player, int $amount) : void{
         $uuid = $this->getId($player);
         if ($uuid !== null) {
             $data = $this->data->get($uuid);
-            $data["last_item_picked_up"] = $name;
+            $data["total_item_picked_up"] += $amount;
+            $this->data->set($uuid, $data);
+            $this->savePlayerData();
+        }
+    }
+
+    public function addOpenInventory(Player|string $player, string $name) : void{
+        $uuid = $this->getId($player);
+        if ($uuid !== null) {
+            $data = $this->data->get($uuid);
+            $data["total_open_inventory"] = $name;
             $this->data->set($uuid, $data);
             $this->savePlayerData();
         }
