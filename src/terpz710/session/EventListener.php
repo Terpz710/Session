@@ -78,6 +78,7 @@ class EventListener implements Listener {
         if ($entity instanceof Player) {
             $data = Loader::getInstance()->getSessionManager()->getSession($entity)->getData();
             $data->saveItemPickedUp($entity, $name);
+            $data->addItemPickUp($entity, 1);
         }
     }
 }
