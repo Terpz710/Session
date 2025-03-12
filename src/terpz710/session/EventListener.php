@@ -13,11 +13,23 @@ use pocketmine\event\entity\EntityItemPickupEvent;
 
 use pocketmine\player\Player;
 
+use terpz710\session\event\PlayerOpenInventoryEvent;
+
 use terpz710\session\task\TotalPlayTimeTask;
 
 class EventListener implements Listener {
 
     protected array $playtimeTasks = [];
+
+    public function onDataPacketReceive(DataPacketReceiveEvent $event) : void{
+        $player = $event->getOrigin()->getPlayer();
+        $packet = $event->getPacket();
+
+        if ($packet instanceof InteractPacket && $packet->action === InteractPacket::ACTION_OPEN_INVENTORY) {
+            $e = new PlayerOpenInventoryEvent($player);
+            $e->call();
+        }
+    }
 
     public function join(PlayerJoinEvent $event) : void{
         $player = $event->getPlayer();
@@ -81,4 +93,10 @@ class EventListener implements Listener {
             $data->addItemPickUp($entity, 1);
         }
     }
+
+    public function openInventory(PlayerOpenInventoryEvent $event) : void{
+        $player = $event->getPlayer();
+        $data = Loader::getInstance()->getSessionManager()->getSession($player)->getData();
+
+        $data->addOpenInventory($player, 1);
 }
