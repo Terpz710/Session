@@ -162,6 +162,17 @@ final class SavedData {
         return $data ? $data["total_item_picked_up"] : null;
     }
 
+    public function getTotalOpenInventory(Player|string $player) {
+        $uuid = $this->getId($player);
+
+        if ($uuid === null) {
+            return;
+        }
+
+        $data = $this->data->get($uuid);
+        return $data ? $data["total_open_inventory"] : null;
+    }
+
     public function getLastItemPickedUp(Player|string $player) {
         $uuid = $this->getId($player);
 
