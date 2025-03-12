@@ -70,7 +70,7 @@ class EventListener implements Listener {
     }
 
     public function pickup(EntityItemPickupEvent $event) : void{
-        $player = $event->getEntity();
+        $entity = $event->getEntity();
         $name = $event->getItem()->getVanillaName();
         $data = Loader::getInstance()->getSessionManager()->getSession($player)->getData();
         
