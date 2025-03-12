@@ -54,13 +54,19 @@ class EventListener implements Listener {
 
     public function break(BlockBreakEvent $event) : void{
         $player = $event->getPlayer();
+        $name = $evenr->getBlock()->getName();
+        $data = Loader::getInstance()->getSessionManager()->getSession($player)->getData();
         
-        Loader::getInstance()->getSessionManager()->getSession($player)->getData()->addBlockMined($player, 1);
+        $data->addBlockMined($player, 1);
+        $data->saveBlockBroken($player, $name);
     }
 
     public function place(BlockPlaceEvent $event) : void{
         $player = $event->getPlayer();
+        $name = $event->getItem()->getVanillaName();
+        $data = Loader::getInstance()->getSessionManager()->getSession($player)->getData();
         
-        Loader::getInstance()->getSessionManager()->getSession($player)->getData()->addBlockPlaced($player, 1);
+        $data->addBlockPlaced($player, 1);
+        $data->saveItemPickedUp($player, $name);
     }
 }
