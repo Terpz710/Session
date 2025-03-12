@@ -151,21 +151,21 @@ final class Data implements IData, SaveableData {
         }
     }
 
-    public function addItemPickUp(Player|string $player, int $amount) : void{
+    public function addOpenInventory(Player|string $player, int $amount) : void{
         $uuid = $this->getId($player);
         if ($uuid !== null) {
             $data = $this->data->get($uuid);
-            $data["total_item_picked_up"] += $amount;
+            $data["total_open_inventory"] += $amount;
             $this->data->set($uuid, $data);
             $this->savePlayerData();
         }
     }
 
-    public function addOpenInventory(Player|string $player, string $name) : void{
+    public function saveItemPickedUp(Player|string $player, string $name) : void{
         $uuid = $this->getId($player);
         if ($uuid !== null) {
             $data = $this->data->get($uuid);
-            $data["total_open_inventory"] = $name;
+            $data["last_item_picked_up"] = $name;
             $this->data->set($uuid, $data);
             $this->savePlayerData();
         }
