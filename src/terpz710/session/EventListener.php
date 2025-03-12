@@ -11,6 +11,8 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\entity\EntityItemPickupEvent;
 
+use pocketmine\player\Player;
+
 use terpz710\session\task\TotalPlayTimeTask;
 
 class EventListener implements Listener {
@@ -68,10 +70,12 @@ class EventListener implements Listener {
     }
 
     public function pickup(EntityItemPickupEvent $event) : void{
-        $player = $event->getPlayer();
+        $player = $event->getEntity();
         $name = $event->getItem()->getVanillaName();
         $data = Loader::getInstance()->getSessionManager()->getSession($player)->getData();
         
-        $data->saveItemPickedUp($player, $name);
+        if ($entity instanceof Player) {
+            $data->saveItemPickedUp($player, $name);
+        }
     }
 }
