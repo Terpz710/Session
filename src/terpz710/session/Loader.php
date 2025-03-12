@@ -8,8 +8,6 @@ use pocketmine\plugin\PluginBase;
 
 use terpz710\session\session\SessionManager;
 
-use terpz710\session\event\PlayerEvent;
-
 final class Loader extends PluginBase {
 
     protected static self $instance;
@@ -23,12 +21,7 @@ final class Loader extends PluginBase {
     protected function onLoad() : void{ self::$instance = $this; }
 
     protected function onEnable() : void{
-        $this->getServer()->getPluginManager()->registerEvents(new PlayerEvent(), $this);
-
-        /*
-        $this->getServer()->getPluginManager()->registerEvents(new BlockEvent(), $this);
-        $this->getServer()->getPluginManager()->registerEvents(new EntityEvent(), $this);
-        **/
+        $this->getServer()->getPluginManager()->registerEvents(new EventListener(), $this);
 
         $this->manager = new SessionManager();
     }
