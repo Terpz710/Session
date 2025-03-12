@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace terpz710\session\event;
+namespace terpz710\session;
 
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerJoinEvent;
@@ -12,7 +12,7 @@ use terpz710\session\Loader;
 
 use terpz710\session\task\TotalPlayTimeTask;
 
-class PlayerEvent implements Listener {
+class EventListener implements Listener {
 
     protected array $playtimeTasks = [];
 
