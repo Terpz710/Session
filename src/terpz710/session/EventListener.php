@@ -102,4 +102,5 @@ class EventListener implements Listener {
         $data = Loader::getInstance()->getSessionManager()->getSession($player)->getData();
 
         $data->addOpenInventory($player, 1);
+    }
 }
