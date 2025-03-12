@@ -172,4 +172,15 @@ final class SavedData {
         $data = $this->data->get($uuid);
         return $data ? $data["last_block_broken"] : null;
     }
+
+    public function getLastBlockPlaced(Player|string $player) {
+        $uuid = $this->getId($player);
+
+        if ($uuid === null) {
+            return;
+        }
+
+        $data = $this->data->get($uuid);
+        return $data ? $data["last_block_placed"] : null;
+    }
 }
