@@ -52,7 +52,7 @@ class EventListener implements Listener {
 
     public function break(BlockBreakEvent $event) : void{
         $player = $event->getPlayer();
-        $name = $evenr->getBlock()->getName();
+        $name = $event->getBlock()->getName();
         $data = Loader::getInstance()->getSessionManager()->getSession($player)->getData();
         
         $data->addBlockMined($player, 1);
