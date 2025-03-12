@@ -151,6 +151,17 @@ final class SavedData {
         return $data ? $data["total_blocks_placed"] : null;
     }
 
+    public function getTotalItemPickedUp(Player|string $player) {
+        $uuid = $this->getId($player);
+
+        if ($uuid === null) {
+            return;
+        }
+
+        $data = $this->data->get($uuid);
+        return $data ? $data["total_item_picked_up"] : null;
+    }
+
     public function getLastItemPickedUp(Player|string $player) {
         $uuid = $this->getId($player);
 
