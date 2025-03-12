@@ -10,8 +10,6 @@ use pocketmine\event\player\PlayerQuitEvent;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 
-use terpz710\session\Loader;
-
 use terpz710\session\task\TotalPlayTimeTask;
 
 class EventListener implements Listener {
