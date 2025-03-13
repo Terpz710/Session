@@ -24,7 +24,7 @@ class EventListener implements Listener {
 
     protected array $playtimeTasks = [];
 
-    public function onDataPacketReceive(DataPacketReceiveEvent $event) : void{
+    public function dataPacketReceive(DataPacketReceiveEvent $event) : void{
         $player = $event->getOrigin()->getPlayer();
         $packet = $event->getPacket();
 
